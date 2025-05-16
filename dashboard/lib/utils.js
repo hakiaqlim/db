@@ -5,11 +5,13 @@ let connection = {};
 export const connectDB = async () => {
   try {
     if (connection.isConnected) return;
-    const db = await mongoose.connect("mongodb+srv://hak:123@cluster0.1kmxlem.mongodb.net/dashboard?retryWrites=true&w=majority&appName=Cluster0", {
-      ssl: true,  // SSL connection is required for MongoDB Atlas
+
+    const db = await mongoose.connect(process.env.MONGO, {
+      ssl: true, // Optional for Atlas, but safe to include
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+
     connection.isConnected = db.connections[0].readyState;
     console.log("✅ MongoDB connected");
   } catch (error) {

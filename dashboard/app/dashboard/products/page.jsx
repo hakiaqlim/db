@@ -1,4 +1,3 @@
-export const dynamic = "force-dynamic";
 
 import Pagination from "@/app/ui/dashboard/pagination/Pagination";
 import Search from "@/app/ui/dashboard/search/Search";
