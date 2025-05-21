@@ -1,28 +1,33 @@
-import { Product, User } from "./models"; // Assuming both are exported
+// File: lib/data.js
+import { Product, User } from "./models";
 import { connectDB } from "./utils";
 
-export const fetchUser = async (q = "") => {
+// ✅ Renamed: Search users by query
+export const searchUsers = async (q = "") => {
   const regex = new RegExp(q, "i");
   try {
     await connectDB();
     const users = await User.find({ username: { $regex: regex } });
     return users;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw new Error("Failed to fetch users");
   }
 };
 
-export const fetchUsers = async (id) => {
+// ✅ Renamed: Fetch single user by ID
+export const fetchUserById = async (id) => {
   try {
     await connectDB();
-    const user = await User.findById(id); // ✅
+    const user = await User.findById(id);
     return user;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw new Error("Failed to fetch user");
   }
 };
+
+
 
 
 export const fetchProducts = async () => {

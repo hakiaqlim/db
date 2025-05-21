@@ -73,13 +73,7 @@ export const updateUser = async (formData) => {
   redirect('/dashboard/users');
 };
 export const updateProduct = async (formData) => {
-  const { id, 
-     title,
-      desc,
-      price,
-      stock,
-      color,
-      size, } = Object.fromEntries(formData);
+  const { id, title, desc, price, stock, color, size } = Object.fromEntries(formData);
 
   try {
     await connectDB();
@@ -93,37 +87,34 @@ export const updateProduct = async (formData) => {
       size,
     };
 
-    if (password && password.trim() !== "") {
-      const salt = await bcrypt.genSalt(10);
-      updateFields.password = await bcrypt.hash(password, salt);
-    }
-
-    // Remove any empty or undefined fields
+    // Remove empty or undefined fields
     Object.keys(updateFields).forEach((key) => {
       if (updateFields[key] === "" || updateFields[key] === undefined) {
         delete updateFields[key];
       }
     });
 
-    await User.findByIdAndUpdate(id, updateFields);
+    await Product.findByIdAndUpdate(id, updateFields);
   } catch (err) {
     console.error(err);
     throw new Error('Failed to update product!');
   }
 
   revalidatePath('/dashboard/products');
-  redirect('/dashboard/users');
+  redirect('/dashboard/products');
 };
+
 
 // Add product
 export const addProduct = async (formData) => {
-  const { title, desc, price, stock, color, size } = Object.fromEntries(formData);
+  const { title, cat, desc, price, stock, color, size } = Object.fromEntries(formData);
 
   try {
     await connectDB();
 
     const newProduct = new Product({
       title,
+      cat,
       desc,
       price,
       stock,

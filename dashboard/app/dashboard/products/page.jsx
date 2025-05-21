@@ -1,8 +1,10 @@
-export const dynamic = "force-dynamic";
+
+'use client';
 
 import Pagination from "@/app/ui/dashboard/pagination/Pagination";
 import Search from "@/app/ui/dashboard/search/Search";
 import Link from "next/link";
+
 import styles from '@/app/ui/dashboard/product/product.module.css';
 import { fetchProducts } from "@/lib/data"; // <-- Assume you have this function
 import { deleteProduct } from "@/lib/action";
@@ -14,7 +16,7 @@ const ProductsPage = async () => {
     <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Search for a product..." />
-        <Link href="/dashboard/product/add">
+        <Link href="/dashboard/products/add">
           <button className={styles.addButton}>Add New</button>
         </Link>
       </div>

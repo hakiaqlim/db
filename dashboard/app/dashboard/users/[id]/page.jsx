@@ -1,11 +1,11 @@
+// File: app/dashboard/users/[id]/page.jsx
 import styles from '@/app/ui/dashboard/users/singleUser/singleUser.module.css'
-import { fetchUser } from '@/lib/data'
+import { fetchUserById } from '@/lib/data'
 import { updateUser } from '@/lib/action'
- // Make sure this exists
 
 const SingleUserPage = async ({ params }) => {
   const { id } = params;
-  const user = await fetchUser(id); // ✅ await now valid
+  const user = await fetchUserById(id); // ✅ Correct function for fetching by ID
 
   return (
     <div className={styles.container}>
@@ -16,7 +16,7 @@ const SingleUserPage = async ({ params }) => {
               user.img ||
               'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-symbol-260nw-2282658551.jpg'
             }
-            alt=""
+            alt="Profile"
           />
         </div>
         {user.username}
@@ -25,24 +25,34 @@ const SingleUserPage = async ({ params }) => {
       <div className={styles.formContainer}>
         <form action={updateUser} className={styles.form}>
           <input type="hidden" name="id" value={user.id} />
+
           <label>Username</label>
-          <input type="text" name="username" placeholder={user.username} />
+          <input type="text" name="username" defaultValue={user.username} />
+
           <label>Email</label>
-          <input type="email" name="email" placeholder={user.email} />
+          <input type="email" name="email" defaultValue={user.email} />
+
           <label>Password</label>
           <input type="text" name="password" placeholder="******" />
+
+          <label>Phone</label>
+          <input type="text" name="phone" defaultValue={user.phone} />
+
           <label>Address</label>
-          <textarea name="address" placeholder={user.address}></textarea>
+          <textarea name="address" defaultValue={user.address}></textarea>
+
           <label>Is Admin?</label>
-          <select name="isAdmin" id="isAdmin">
-            <option value="true" selected={user.isAdmin}>Yes</option>
-            <option value="false" selected={!user.isAdmin}>No</option>
+          <select name="isAdmin" defaultValue={user.isAdmin.toString()}>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
+
           <label>Is Active</label>
-          <select name="isActive" id="isActive">
-            <option value="true" selected={user.isActive}>Yes</option>
-            <option value="false" selected={!user.isActive}>No</option>
+          <select name="isActive" defaultValue={user.isActive.toString()}>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
+
           <button>Update</button>
         </form>
       </div>

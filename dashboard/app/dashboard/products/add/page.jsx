@@ -1,27 +1,25 @@
-import React from 'react'
-import styles from '@/app/ui/dashboard/product/addProduct/addProduct.module.css'
-import { addProduct } from '@/lib/action'
-const AddProductPage = () => {
+import { addProduct } from "@/lib/action";
+import styles from "@/app/ui/dashboard/product/addProduct/addProduct.module.css";
+
+export default function AddProductPage() {
   return (
-    <div className={styles.container}>
-<form action={addProduct} className={styles.form}>
-  <input type="text" placeholder='title' required/>
-  <select name="cat" id="cat">
-    <option value="general">Choose a Category</option>
-    <option value="kitchen">Kitchen</option>
-    <option value="phone">Phone</option>
-    <option value="computer">Computer</option>
-  </select>
+    <form action={addProduct} className={styles.form}>
+      <input type="text" name="title" placeholder="Title" required />
 
-  <input type="number" placeholder='price' name="price" />
-  <input type="number" placeholder='stock' name='stock' />
-  <input type="text" placeholder='color' name='color' />
-  <input type="text" placeholder='size' name='size' />
-  <textarea name="desc" id="desc" cols="30" rows="16" placeholder='Description'></textarea>
-  <button type='submit'>Submit</button>
-</form>
-    </div>
-  )
+      <select name="cat" id="cat">
+        <option value="general">Choose a Category</option>
+        <option value="kitchen">Kitchen</option>
+        <option value="phone">Phone</option>
+        <option value="computer">Computer</option>
+      </select>
+
+      <input type="number" name="price" placeholder="Price" required />
+      <input type="number" name="stock" placeholder="Stock" required />
+      <input type="text" name="color" placeholder="Color" />
+      <input type="text" name="size" placeholder="Size" />
+      <textarea name="desc" placeholder="Description" cols="30" rows="16" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  );
 }
-
-export default AddProductPage
